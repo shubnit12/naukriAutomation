@@ -38,10 +38,7 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        // Naukri detects Playwright's bundled Chromium headless mode.
-        // Using installed Google Chrome makes the test work headless too,
-        // and matches what `src/index.ts` uses in production.
-        channel: 'chrome',
+        channel: 'chromium',
       },
     }
     /* Test against mobile viewports. */
