@@ -55,3 +55,6 @@ cp test-results/*/*.png test-results/*/*.webm /sdcard/Download/
 to copy screenshot to android storage
 or
 npx playwright show-report --host 0.0.0.0
+
+
+ssh -p 8022 <whoami>@<phone ip>
