@@ -2,9 +2,14 @@ import { test, expect, Page } from '@playwright/test';
 
 test.use({
     launchOptions: {
-        args: ['--deny-permission-prompts'],
+        args: [
+            '--deny-permission-prompts',
+            '--no-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-gpu',
+        ],
     },
-});
+})
 
 test.use({ storageState: 'state.json' });
 let successfullyApplied = 0
