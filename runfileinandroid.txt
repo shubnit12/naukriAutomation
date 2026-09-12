@@ -1,0 +1,50 @@
+how to setup this in android
+
+first install termux
+then install proot and in proot install debian
+
+inside proot run the fllowing
+
+apt update
+apt install -y nodejs npm git curl ca-certificates
+readlink -f "$(command -v node)"   # must now print /usr/bin/node
+node -p "process.platform"         # must print: linux
+
+If it still shows the Termux path, check echo $PATH and remove any /data/data/com.termux/... entry from /root/.bashrc / /root/.profile, or re-login with plain proot-distro login debian (no --termux-home).
+
+Then install the browser and deps:
+
+cd ~/naukriAutomation
+npm install --registry=https://registry.npmjs.org
+npx playwright install chromium
+npx playwright install-deps chromium
+
+playwright.config.ts should have following settings
+use: {
+  ...devices['Desktop Chrome'],
+  channel: 'chromium',
+},
+
+and any test file should have
+
+test.use({
+    launchOptions: {
+        args: [
+            '--deny-permission-prompts',
+            '--no-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-gpu',
+        ],
+    },
+});
+
+
+at the top
+
+
+then use 
+
+cd ~/naukriAutomation
+npx playwright test tests/naukriApply.spec.ts --project=chromium --reporter=line
+
+to run automation
