@@ -93,6 +93,9 @@ test('has title', async ({ page, context }) => {
                         // await page.pause()
                         //complete chat box function
                         await completeChatBox(jobTab)
+                          console.log("Applied Successfull")
+
+                        successfullyApplied = successfullyApplied+1
                         await jobTab.close()
 
                     } catch (error) {
@@ -112,8 +115,6 @@ async function completeChatBox(page: Page) {
     while (true) {
         try {
             await expect(page.getByText('Applied to')).toBeVisible({ timeout: 5000 });
-            console.log("Applied Successfull")
-            successfullyApplied = successfullyApplied+1
             break;
         } catch (error) {
         }
