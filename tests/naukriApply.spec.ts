@@ -10,7 +10,8 @@ test.use({
         ],
     },
 })
-
+const TOKEN = ':';
+const CHAT_ID = '-';
 test.use({ storageState: 'state.json' });
 let successfullyApplied = 0
 let TotalJobsFound = 0
@@ -107,6 +108,7 @@ test('has title', async ({ page, context }) => {
             }
         }
         console.log(`Total Number of Jobs were = ${TotalJobsFound}, and successfully applied were ${successfullyApplied}`)
+        await sendTelegramAlert(`Total Number of Jobs were = ${TotalJobsFound}, and successfully applied were ${successfullyApplied}`)
     // await page.pause()
 
 
@@ -363,4 +365,14 @@ async function selectOneOption(page: Page){
 async function hasNode(textArray: string[]) {
     const text = textArray.join(' ').toLowerCase();
     return ['node', 'js', 'javascript'].some(keyword => text.includes(keyword));
+}
+
+
+async function sendTelegramAlert(text:any) {
+    await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text }),
+    });
+    console.log("text ---> ", text)
 }
