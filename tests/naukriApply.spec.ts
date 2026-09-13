@@ -21,7 +21,7 @@ test('has title', async ({ page, context }) => {
       await page.waitForTimeout(1000)
       await page.getByRole('button', { name: 'Search jobs here' }).click();
       await page.waitForTimeout(1000)
-      await page.getByRole('textbox', { name: 'Enter keyword, designation,' }).fill('node.js, node js developer, node js backend developer, mern, mern stack, node, express, javascript, ');
+      await page.getByRole('textbox', { name: 'Enter keyword, designation,' }).fill('nodejs, Node.js, Node Js Developer,');
       await page.waitForTimeout(1000)
       await page.getByRole('textbox', { name: 'Select experience' }).click();
       await page.waitForTimeout(1000)
