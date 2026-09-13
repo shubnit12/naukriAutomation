@@ -14,8 +14,8 @@ test.use({
         ],
     },
 });
-const TOKEN = ':';
-const CHAT_ID = '-';
+const TOKEN = process.env.TOKEN;
+const CHAT_ID = process.env.CHAT_ID;
 test.use({ storageState: 'state.json' });
 
 const NAUKRI_PROFILE_URL = 'https://www.naukri.com/mnjuser/profile';
@@ -151,9 +151,11 @@ test('profile update', async ({ page, context }) => {
     // auth tokens on every request with a sliding TTL — saving here keeps
     // state.json valid as long as this runs regularly.
     // await context.storageState({ path: 'state.json' });
-    await sendTelegramAlert("[naukri] resume present + profile marked 'updated Today' — daily run complete")
 });
-
+test.afterAll(async () => {
+    await sendTelegramAlert("[naukri] resume present + profile marked 'updated Today' — daily run complete")
+    
+  });
 /**
  * Downloads the latest resume from the given URL into the OS temp dir and
  * returns the absolute path, ready for fileChooser.setFiles().
@@ -268,3 +270,4 @@ async function sendTelegramAlert(text:any) {
     });
     console.log("text ---> ", text)
 }
+
