@@ -143,6 +143,32 @@ test('profile update', async ({ page, context }) => {
         'Naukri did not mark the profile as "updated Today" — changes may not have persisted server-side',
     ).toBeVisible({ timeout: 10_000 });
 
+
+    await page.locator('#lazyKeySkills').getByText('editOneTheme').click();
+    let lastskillvalue = await page.locator('div:nth-child(21) > .material-icons').locator('..').locator('span').innerText()
+    await page.pause()
+    if (lastskillvalue==="SQL"){
+        console.log("Last Skill Value : " , lastskillvalue)
+        await page.locator('div:nth-child(21) > .material-icons').click();
+        await page.getByRole('textbox', { name: 'Add skills' }).click();
+        await page.getByRole('textbox', { name: 'Add skills' }).pressSequentially('nosql', { delay: 200 });
+        await page.getByText('NoSQL', { exact: true }).first().click()
+        await page.getByRole('button', { name: 'Save' }).click();
+        
+    }else{
+        console.log("Last Skill Value : " , lastskillvalue)
+        await page.locator('div:nth-child(21) > .material-icons').click();
+        await page.getByRole('textbox', { name: 'Add skills' }).click();
+        await page.getByRole('textbox', { name: 'Add skills' }).pressSequentially('sql', { delay: 200 });
+        await page.getByText('SQL', { exact: true }).first().click()
+        await page.getByRole('button', { name: 'Save' }).click();
+        
+
+    }
+    
+   
+
+
     console.log(
         '[naukri] resume present + profile marked "updated Today" — daily run complete',
     );
