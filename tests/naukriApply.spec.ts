@@ -10,12 +10,13 @@ test.use({
         ],
     },
 })
-const TOKEN = ':';
-const CHAT_ID = '-';
+const TOKEN = process.env.TOKEN;
+const CHAT_ID = process.env.CHAT_ID;
 test.use({ storageState: 'state.json' });
 let successfullyApplied = 0
 let TotalJobsFound = 0
 test('has title', async ({ page, context }) => {
+    console.log("Telegram : " , TOKEN, CHAT_ID)
       await page.goto('https://www.naukri.com/');
       await page.waitForTimeout(1000)
       await page.getByRole('button', { name: 'Search jobs here' }).click();
@@ -107,12 +108,17 @@ test('has title', async ({ page, context }) => {
                 }
             }
         }
-        console.log(`Total Number of Jobs were = ${TotalJobsFound}, and successfully applied were ${successfullyApplied}`)
-        await sendTelegramAlert(`Total Number of Jobs were = ${TotalJobsFound}, and successfully applied were ${successfullyApplied}`)
+       
     // await page.pause()
 
 
 });
+
+test.afterAll(async () => {
+    console.log(`Total Number of Jobs were = ${TotalJobsFound}, and successfully applied were ${successfullyApplied}`)
+    await sendTelegramAlert(`Total Number of Jobs were = ${TotalJobsFound}, and successfully applied were ${successfullyApplied}`)
+    
+  });
 async function completeChatBox(page: Page) {
     while (true) {
         try {
