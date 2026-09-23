@@ -4,3 +4,6 @@
 .env
 /state.json
 state.json
+playwright.config.json
+instagram.json
+state.json
