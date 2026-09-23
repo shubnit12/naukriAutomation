@@ -94,7 +94,7 @@ while (x < 10) {
                 await commentsWithStory.nth(i)
                 .getByRole('button', { name: 'Like', exact: true })
                 .first()
-                .hover();
+                .click();
                 console.log(`${i}th comment is liked`)
                 numberofCommentsLiked = numberofCommentsLiked+1
                 await page.waitForTimeout(WAIT);
