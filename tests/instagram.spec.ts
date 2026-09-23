@@ -50,7 +50,7 @@ while (x < 10) {
         try {
           await post.scrollIntoViewIfNeeded({ timeout: 5000 });
         } catch {
-          console.log(`Post ${i} not scrollable/visible, skipping`);
+          console.log(`Post not scrollable/visible, skipping`);
           continue; // or just carry on without scrolling
         }
         await page.waitForTimeout(WAIT);
@@ -89,7 +89,7 @@ while (x < 10) {
             const count = await commentsWithStory.count();
             await page.waitForTimeout(WAIT);
             console.log('story comments with a like button:', count);
-            await page.pause()
+            
             for (let i = 0; i < countTotalComments; i++) {
                 await page.waitForTimeout(WAIT);
                 
