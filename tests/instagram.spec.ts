@@ -92,7 +92,13 @@ while (x < 10) {
 
             for (let i = 0; i < count; i++) {
                 await page.waitForTimeout(WAIT);
-                await commentsWithStory.nth(i).scrollIntoViewIfNeeded();
+                
+                try {
+                    await commentsWithStory.nth(i).scrollIntoViewIfNeeded({ timeout: 5000 });
+                    } catch {
+                      console.log(`Post ${i}: not scrollable, skipping`);
+                      
+                    }
                 await page.waitForTimeout(WAIT);
 
                 await page.waitForTimeout(WAIT);
