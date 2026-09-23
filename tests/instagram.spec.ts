@@ -47,7 +47,12 @@ while (x < 10) {
     for (const post of allPosts) {
 
         await page.waitForTimeout(WAIT);
-        await post.scrollIntoViewIfNeeded();
+        try {
+          await post.scrollIntoViewIfNeeded({ timeout: 5000 });
+        } catch {
+          console.log(`Post ${i} not scrollable/visible, skipping`);
+          continue; // or just carry on without scrolling
+        }
         await page.waitForTimeout(WAIT);
 
         const timeEl = post.locator('time').first();
