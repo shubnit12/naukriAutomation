@@ -89,12 +89,12 @@ while (x < 10) {
             const count = await commentsWithStory.count();
             await page.waitForTimeout(WAIT);
             console.log('story comments with a like button:', count);
-
-            for (let i = 0; i < count; i++) {
+            await page.pause()
+            for (let i = 0; i < countTotalComments; i++) {
                 await page.waitForTimeout(WAIT);
                 
                 try {
-                    await commentsWithStory.nth(i).scrollIntoViewIfNeeded({ timeout: 5000 });
+                    await likeButtons.nth(i).scrollIntoViewIfNeeded({ timeout: 5000 });
                     } catch {
                       console.log(`Post ${i}: not scrollable, skipping`);
                       
@@ -102,10 +102,7 @@ while (x < 10) {
                 await page.waitForTimeout(WAIT);
 
                 await page.waitForTimeout(WAIT);
-                await commentsWithStory.nth(i)
-                .getByRole('button', { name: 'Like', exact: true })
-                .first()
-                .click();
+                await likeButtons.nth(i).click();
                 console.log(`${i}th comment is liked`)
                 numberofCommentsLiked = numberofCommentsLiked+1
                 await page.waitForTimeout(WAIT);
