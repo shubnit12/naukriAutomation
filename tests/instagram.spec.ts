@@ -19,7 +19,7 @@ let successfullyApplied = 0
 let TotalJobsFound = 0
 test.setTimeout(18000000)
 test('Instagram title', async ({ page, context }) => {
-    page.setDefaultTimeout(30000);
+    page.setDefaultTimeout(15000);
     let x = 0
     console.log("Telegram : ", TOKEN, CHAT_ID)
     await page.goto('https://www.instagram.com/', {
