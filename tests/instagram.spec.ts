@@ -18,7 +18,7 @@ test.use({ storageState: 'instagram.json' });
 let successfullyApplied = 0
 const runStartedAt = Date.now(); 
 let TotalJobsFound = 0
-test.setTimeout(18000000)
+test.setTimeout(1800000)
 test('Instagram title', async ({ page, context }) => {
 
     try {
@@ -35,7 +35,7 @@ test('Instagram title', async ({ page, context }) => {
     await page.goto('https://www.instagram.com/', {
         timeout: 60000
       });
-while (x < 10) {
+while (x < 8) {
     await page.waitForTimeout(WAIT);
     await page.keyboard.press('End');
     x++
