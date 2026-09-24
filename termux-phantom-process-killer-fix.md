@@ -85,8 +85,9 @@ phone is called the *target* below.
 
 ### Step 3. Run the fix from the second device
 
-Save this as `fix-phantom.sh`. On a computer, change the first line to `#!/bin/bash` and delete
-the `pkg install` line.
+Save this as `fix-phantom.sh`. On a Mac or Linux computer, change the first line to `#!/bin/bash`
+and delete the `pkg install` line. On Windows there is no bash, so skip the script and type its
+`adb` commands one by one in the same order.
 
 ```bash
 #!/data/data/com.termux/files/usr/bin/bash
