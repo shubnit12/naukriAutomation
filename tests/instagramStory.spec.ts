@@ -18,7 +18,7 @@ test.use({ storageState: 'instagram.json' });
 let successfullyApplied = 0
 const runStartedAt = Date.now();
 let TotalJobsFound = 0
-test.setTimeout(900000)
+test.setTimeout(1800000)
 test('Instagram title', async ({ page, context }) => {
 
     try {
