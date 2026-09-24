@@ -16,9 +16,19 @@ const TOKEN = process.env.TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 test.use({ storageState: 'instagram.json' });
 let successfullyApplied = 0
+const runStartedAt = Date.now(); 
 let TotalJobsFound = 0
 test.setTimeout(18000000)
 test('Instagram title', async ({ page, context }) => {
+
+    try {
+    const startMsg = `🤖 Bot started — ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
+    console.log(startMsg);
+    await sendTelegramAlert(startMsg).catch(() => {});
+    } catch (error) {
+        
+    } 
+
     page.setDefaultTimeout(15000);
     let x = 0
     console.log("Telegram : ", TOKEN, CHAT_ID)
@@ -26,9 +36,12 @@ test('Instagram title', async ({ page, context }) => {
         timeout: 60000
       });
 while (x < 10) {
-    x++
-
     await page.waitForTimeout(WAIT);
+    await page.keyboard.press('End');
+    x++
+    await page.waitForTimeout(WAIT);
+    await page.keyboard.press('End');
+
     const loaded = await scrollTheFeed(page, 6);
     await page.waitForTimeout(WAIT);
     console.log('posts available:', loaded);
@@ -68,7 +81,11 @@ while (x < 10) {
         }
 
         await page.waitForTimeout(WAIT);
-        await post.getByRole('button', { name: 'Comment' }).click({ timeout: 10000 });
+        try {    
+            await post.getByRole('button', { name: 'Comment' }).click({ timeout: 10000 });
+        } catch (error) {
+            continue;
+        }
         await page.waitForTimeout(WAIT);
 
         try {
@@ -102,7 +119,7 @@ while (x < 10) {
                 await page.waitForTimeout(WAIT);
 
                 await page.waitForTimeout(WAIT);
-                await likeButtons.nth(i).click();
+                await likeButtons.nth(i).click({ timeout: 10000 });
                 console.log(`${i}th comment is liked`)
                 numberofCommentsLiked = numberofCommentsLiked+1
                 await page.waitForTimeout(WAIT);
@@ -126,10 +143,12 @@ while (x < 10) {
 })
 
 
-test.afterAll(async () => {
-    console.log(`Total Number of Comments liked were = ${numberofCommentsLiked}`)
-    await sendTelegramAlert(`Total Number of Comments liked were = ${numberofCommentsLiked}`)
-    
+test.afterAll(async () => {    
+    const mins = ((Date.now() - runStartedAt) / 60000).toFixed(1);
+    const msg = `✅ Done — ${numberofCommentsLiked} comments liked in ${mins} min`;
+    console.log(msg);
+    await sendTelegramAlert(msg).catch(() => {});
+
   });
 
 async function sendTelegramAlert(text: any) {
