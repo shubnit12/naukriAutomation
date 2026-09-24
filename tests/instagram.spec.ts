@@ -22,7 +22,7 @@ test.setTimeout(1800000)
 test('Instagram title', async ({ page, context }) => {
 
     try {
-    const startMsg = `🤖 Bot started — ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
+    const startMsg = `Like wala 🤖 Bot started — ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
     console.log(startMsg);
     await sendTelegramAlert(startMsg).catch(() => {});
     } catch (error) {
