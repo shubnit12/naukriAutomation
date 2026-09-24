@@ -64,6 +64,12 @@ phone is called the *target* below.
 - Check `adb --version` shows **30 or higher**. Older adb cannot do Wi-Fi pairing.
 - Both devices must be on the **same Wi-Fi network**. Guest networks that isolate clients from
   each other will not work.
+- **Only one phone?** Try running the fix from the target phone itself first: install
+  `android-tools` in its Termux, open Recents, tap the Termux icon, choose **Open in split screen
+  view** with Settings in the other half (Termux must stay visible, or Android kills it), and use
+  `localhost` as the target IP in Step 3. This works on many phones. If adb answers
+  `cannot connect to daemon` no matter what (it did on our S10+), the local client is broken and
+  you do need a second device.
 
 ### Step 2. Enable Wireless debugging on the target phone
 
@@ -147,6 +153,18 @@ adb shell device_config is_sync_disabled_for_tests
 - In the Termux notification, tap **Acquire wakelock**.
 
 These stop other background kills that are not the phantom killer.
+
+### Step 6. Test that the fix worked
+
+On the target phone, open Termux and push the process count past the old limit, for example:
+
+```bash
+for i in $(seq 1 40); do sleep 600 & done; ps -e | wc -l
+```
+
+The count should print above 40. Now press Home, use other apps for five minutes, then return to
+Termux. Before the fix, the session would be dead with `signal 9`. After the fix, your shell is
+still there. Clean up with `pkill sleep`.
 
 ---
 
