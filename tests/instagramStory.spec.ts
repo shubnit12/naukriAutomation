@@ -11,7 +11,7 @@ test.use({
     },
 })
 let numberofCommentsLiked = 0
-const WAIT = 2000;
+const WAIT = 500;
 const TOKEN = process.env.TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 test.use({ storageState: 'instagram.json' });
@@ -101,7 +101,7 @@ test('Instagram title', async ({ page, context }) => {
                 console.log('story comments with a ring:', count);
                 // await page.pause()
                 if(count===0){
-                    await page.getByRole('button', { name: 'Close' }).click()
+                    await page.getByRole('button', { name: 'Close' }).click({timeout:10000})
                 }
                 for (let i = 0; i < count; i++) {
                     await page.waitForTimeout(WAIT);
