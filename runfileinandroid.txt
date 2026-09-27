@@ -61,4 +61,7 @@ npx playwright show-report --host 0.0.0.0 --port 9323
 ~ $ cat prootinsidedirectory.txt 
 cp /data/data/com.termux/files/usr/var/lib/proot-distro/containers/ubuntu/rootfs/root/naukriAutomation/test-results/naukriApply-has-title-chromium/test-failed-1.png ~/storage/downloads/test-failed-1.png
 
+scp -P 8022 -r u0_a373@192.168.1.20:/data/data/com.termux/files/usr/var/lib/proot-distro/containers/ubuntu/rootfs/root/naukriAutomation/test-results/instagramStory-Instagram-title-chromium ~/Downloads/ 
+
+
 ssh -p 8022 <whoami>@<phone ip>
