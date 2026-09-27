@@ -55,6 +55,10 @@ cp test-results/*/*.png test-results/*/*.webm /sdcard/Download/
 to copy screenshot to android storage
 or
 npx playwright show-report --host 0.0.0.0
+npx playwright show-report --host 0.0.0.0 --port 9323
 
+
+~ $ cat prootinsidedirectory.txt 
+cp /data/data/com.termux/files/usr/var/lib/proot-distro/containers/ubuntu/rootfs/root/naukriAutomation/test-results/naukriApply-has-title-chromium/test-failed-1.png ~/storage/downloads/test-failed-1.png
 
 ssh -p 8022 <whoami>@<phone ip>
