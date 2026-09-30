@@ -24,6 +24,17 @@ const RESUME_URL = process.env.RESUME_URL ?? 'https://api.shubnit.com/resumexxx'
 const LOCAL_RESUME = path.join(__dirname, '..', 'resume.pdf');
 
 test('profile update', async ({ page, context }) => {
+
+
+    try {
+        const startMsg = `Profile Update Wala 🤖 Bot started \n\n — ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
+        console.log(startMsg);
+        await sendTelegramAlert(startMsg).catch(() => { });
+    } catch (error) {
+
+    }
+
+
     // Naukri's bot detection sniffs navigator.webdriver — hide it before
     // the first navigation (same init script production used).
     await context.addInitScript(() => {
@@ -70,7 +81,8 @@ test('profile update', async ({ page, context }) => {
     // ── Toggle the trailing dot on the headline so Naukri sees a change ───
     await page.locator('#lazyResumeHead').getByText('editOneTheme').click();
 
-    const headlineBox = page.getByRole('textbox', { name: 'Minimum 5 words. Sample' });
+    // const headlineBox = page.getByRole('textbox', { name: 'Minimum 5 words' });
+    const headlineBox = page.getByRole('textbox', { name: 'Resume headline' })
     await headlineBox.click();
     const currentHeadline = await headlineBox.inputValue();
     const updatedHeadline = currentHeadline.endsWith('.')
@@ -105,7 +117,9 @@ test('profile update', async ({ page, context }) => {
     const deleteIcon = page.locator('span').filter({ hasText: /^deleteOneTheme$/ });
     if ((await deleteIcon.count()) > 0) {
         await deleteIcon.first().click();
-        await page.getByRole('button', { name: 'Delete' }).click();
+        
+        // await page.getByRole('button', { name: 'Delete' }).first().click();
+        await page.getByRole('button', { name: 'Delete', exact: true }).first().click()
         console.log('[naukri] existing resume deleted');
     } else {
         console.log('[naukri] no existing resume — skipping delete');
@@ -146,20 +160,22 @@ test('profile update', async ({ page, context }) => {
 
     await page.locator('#lazyKeySkills').getByText('editOneTheme').click();
     let lastskillvalue = await page.locator('div:nth-child(21) > .material-icons').locator('..').locator('span').innerText()
-    await page.pause()
+    
     if (lastskillvalue==="SQL"){
         console.log("Last Skill Value : " , lastskillvalue)
         await page.locator('div:nth-child(21) > .material-icons').click();
-        await page.getByRole('textbox', { name: 'Add skills' }).click();
-        await page.getByRole('textbox', { name: 'Add skills' }).pressSequentially('nosql', { delay: 200 });
+        await page.getByRole('combobox', { name: 'Add skills' }).click()
+        await page.getByRole('combobox', { name: 'Add skills' }).pressSequentially('nosql', { delay: 200 });
+        await page.waitForTimeout(3000)
         await page.getByText('NoSQL', { exact: true }).first().click()
         await page.getByRole('button', { name: 'Save' }).click();
         
     }else{
         console.log("Last Skill Value : " , lastskillvalue)
         await page.locator('div:nth-child(21) > .material-icons').click();
-        await page.getByRole('textbox', { name: 'Add skills' }).click();
-        await page.getByRole('textbox', { name: 'Add skills' }).pressSequentially('sql', { delay: 200 });
+        await page.getByRole('combobox', { name: 'Add skills' }).click()
+        await page.getByRole('combobox', { name: 'Add skills' }).pressSequentially('sql', { delay: 200 });
+        await page.waitForTimeout(3000)
         await page.getByText('SQL', { exact: true }).first().click()
         await page.getByRole('button', { name: 'Save' }).click();
         
