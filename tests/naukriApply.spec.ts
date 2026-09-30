@@ -16,6 +16,15 @@ test.use({ storageState: 'state.json' });
 let successfullyApplied = 0
 let TotalJobsFound = 0
 test('has title', async ({ page, context }) => {
+
+    try {
+        const startMsg = `Naukri Apply Wala 🤖 Bot started \n\n — ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
+        console.log(startMsg);
+        await sendTelegramAlert(startMsg).catch(() => { });
+    } catch (error) {
+
+    }
+
     console.log("Telegram : " , TOKEN, CHAT_ID)
       await page.goto('https://www.naukri.com/');
       await page.waitForTimeout(1000)
