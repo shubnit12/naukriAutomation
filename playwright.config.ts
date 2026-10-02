@@ -39,14 +39,16 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
-  projects: [
-    {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-        channel: 'chromium',
-      },
-    }
+    projects: [
+        {
+          name: 'chromium',
+          use: {
+            channel: 'chromium',
+            viewport: null,
+               },
+        }
+    ]
+
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
