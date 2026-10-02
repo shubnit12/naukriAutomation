@@ -64,4 +64,9 @@ cp /data/data/com.termux/files/usr/var/lib/proot-distro/containers/ubuntu/rootfs
 scp -P 8022 -r u0_a373@192.168.1.20:/data/data/com.termux/files/usr/var/lib/proot-distro/containers/ubuntu/rootfs/root/naukriAutomation/test-results/instagramStory-Instagram-title-chromium ~/Downloads/ 
 
 
+
+
+DISPLAY=:1 npx playwright test Testfile.spec.ts --debug
+
+
 ssh -p 8022 <whoami>@<phone ip>
