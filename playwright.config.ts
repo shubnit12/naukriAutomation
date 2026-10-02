@@ -47,7 +47,6 @@ export default defineConfig({
             viewport: null,
                },
         }
-    ]
 
     /* Test against mobile viewports. */
     // {
