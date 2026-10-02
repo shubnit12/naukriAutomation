@@ -114,8 +114,14 @@ test('Instagram title', async ({ page, context }) => {
                     const storyRing = commentsWithStory.nth(i)
                     .locator('div[role="button"]:has(canvas):has(img)')
                     .first();
-                    await storyRing.click();
-                    await page.waitForTimeout(4500);
+                    await storyRing.click({timeout:10000});
+
+                    function randomDelay(min: number, max: number): number {
+                        return Math.floor(Math.random() * (max - min + 1)) + min;
+                    }
+                    const storyWatchTime = randomDelay(1000, 4000);
+                    console.log(`watching story for ${storyWatchTime} ms`);
+                    await page.waitForTimeout(storyWatchTime);
                     await page.getByRole('button', { name: 'Close' }).first().click({ timeout: 10000 });
                     await page.waitForTimeout(WAIT);
                     numberofCommentsLiked = numberofCommentsLiked + 1;   
