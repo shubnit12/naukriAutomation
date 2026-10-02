@@ -134,6 +134,9 @@ test('Instagram title', async ({ page, context }) => {
 })
 
 
+test.afterEach(async ({ context }) => {
+    await context.storageState({ path: 'instagram.json' }).catch(() => {});
+});
 test.afterAll(async () => {
     const mins = ((Date.now() - runStartedAt) / 60000).toFixed(1);
     const msg = `✅ Done — ${numberofCommentsLiked} Stories viewed in ${mins} min`;
