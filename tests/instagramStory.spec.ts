@@ -1,15 +1,21 @@
 import { test, expect, Page } from '@playwright/test';
 
 test.use({
-    launchOptions: {
-        args: [
-            '--deny-permission-prompts',
-            '--no-sandbox',
-            '--disable-dev-shm-usage',
-            '--disable-gpu',
-        ],
-    },
-})
+  headless: false,
+  viewport: null,
+  deviceScaleFactor: undefined,
+  launchOptions: {
+    args: [
+      '--deny-permission-prompts',
+      '--no-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-blink-features=AutomationControlled',
+      '--window-size=1024,768',
+      '--window-position=100,50',
+      '--ignore-gpu-blocklist',
+    ],
+  },
+});
 let numberofCommentsLiked = 0
 const WAIT = 500;
 const TOKEN = process.env.TOKEN;
@@ -136,6 +142,7 @@ test('Instagram title', async ({ page, context }) => {
 
 test.afterEach(async ({ context }) => {
     await context.storageState({ path: 'instagram.json' }).catch(() => {});
+    console.log("Storage State Updated")
 });
 test.afterAll(async () => {
     const mins = ((Date.now() - runStartedAt) / 60000).toFixed(1);
