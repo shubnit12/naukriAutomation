@@ -1,4 +1,3 @@
-root@localhost:~/naukriAutomation# cat tests/naukriLogin.spec.ts 
 import { test, expect } from '@playwright/test';
 test.use({
   headless: false,
