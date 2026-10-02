@@ -148,6 +148,10 @@ while (x < 8) {
 }
 })
 
+test.afterEach(async ({ context }) => {
+    await context.storageState({ path: 'instagram.json' }).catch(() => {});
+    console.log("Storage State Updated")
+});
 
 test.afterAll(async () => {    
     const mins = ((Date.now() - runStartedAt) / 60000).toFixed(1);
