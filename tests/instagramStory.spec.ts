@@ -67,7 +67,7 @@ test('Instagram title', async ({ page, context }) => {
 
             await page.waitForTimeout(WAIT);
             try {
-                await post.scrollIntoViewIfNeeded({ timeout: 5000 });
+                await post.scrollIntoViewIfNeeded({ timeout: 2000 });
             } catch {
                 console.log(`Post not scrollable/visible, skipping`);
                 continue; // or just carry on without scrolling
@@ -88,7 +88,7 @@ test('Instagram title', async ({ page, context }) => {
 
             await page.waitForTimeout(WAIT);
             try {
-                await post.getByRole('button', { name: 'Comment' }).click({ timeout: 10000 });
+                await post.getByRole('button', { name: 'Comment' }).click({ timeout: 5000 });
             } catch (error) {
                 continue;
             }
@@ -107,14 +107,14 @@ test('Instagram title', async ({ page, context }) => {
                 console.log('story comments with a ring:', count);
                 // await page.pause()
                 if(count===0){
-                    await page.getByRole('button', { name: 'Close' }).click({timeout:10000})
+                    await page.getByRole('button', { name: 'Close' }).click({timeout:3000})
                 }
                 for (let i = 0; i < count; i++) {
                     await page.waitForTimeout(WAIT);
                     const storyRing = commentsWithStory.nth(i)
                     .locator('div[role="button"]:has(canvas):has(img)')
                     .first();
-                    await storyRing.click({timeout:10000});
+                    await storyRing.click({timeout:5000});
 
                     function randomDelay(min: number, max: number): number {
                         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -122,11 +122,11 @@ test('Instagram title', async ({ page, context }) => {
                     const storyWatchTime = randomDelay(1000, 4000);
                     console.log(`watching story for ${storyWatchTime} ms`);
                     await page.waitForTimeout(storyWatchTime);
-                    await page.getByRole('button', { name: 'Close' }).first().click({ timeout: 10000 });
+                    await page.getByRole('button', { name: 'Close' }).first().click({ timeout: 5000 });
                     await page.waitForTimeout(WAIT);
                     numberofCommentsLiked = numberofCommentsLiked + 1;   
                     if(i<count-1){
-                        await post.getByRole('button', { name: 'Comment' }).click({ timeout: 10000 });             
+                        await post.getByRole('button', { name: 'Comment' }).click({ timeout: 5000 });             
                         await page.waitForTimeout(WAIT);
                          }
                 }
