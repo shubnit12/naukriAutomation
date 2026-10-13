@@ -17,7 +17,7 @@ test.use({
   },
 });
 let numberofCommentsLiked = 0
-const WAIT = 500;
+const WAIT = 2000;
 const TOKEN = process.env.TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 test.use({ storageState: 'instagram.json' });
